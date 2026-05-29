@@ -1,0 +1,8 @@
+torch>=1.13
+numpy
+# Generation backend (vLLM is served separately; client uses the OpenAI SDK)
+openai>=1.0
+# Dataset loading for the runner
+datasets
+# Hidden-state extraction backbone
+transformers>=4.40
