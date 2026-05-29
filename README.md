@@ -90,6 +90,39 @@ The runner writes per-problem pickle + txt files containing one metadata dict pe
 
 Supported datasets: `aime` (HuggingFaceH4/aime_2024), `math` (HuggingFaceH4/MATH-500), `gpqa` (Idavidrein/gpqa, diamond split).
 
+## Feature extraction
+
+Step 3 of the loop — turning a step's hidden states into the feature vector the probes score — is handled by `lava/feature_extraction.py`, fed by `HFHiddenStateBackbone` (`lava/backbone.py`).
+
+vLLM generates the step text but does not expose per-token hidden states, so a separate **frozen** HF backbone runs a no-grad forward over `(context + step)` and slices out only the step's token positions:
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from lava import HFHiddenStateBackbone, extract_step_feature, compute_feature_dim
+
+tok = AutoTokenizer.from_pretrained("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B")
+mdl = AutoModelForCausalLM.from_pretrained("deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B")
+backbone = HFHiddenStateBackbone(mdl, tok, device="cuda")
+
+# (L+1, T_step, d) — all layers, step tokens only
+hidden = backbone.extract_step_hidden(context="Prove sqrt(2) is irrational.\n\n",
+                                      step_text="Assume for contradiction...")
+
+# Aggregate into a single feature vector (Eq. 3)
+feat = extract_step_feature(hidden, mode="concat", n_tail=5)   # (n_tail * d,)
+```
+
+The aggregation ϕ(·) maps `(L, T, d)` hidden states to a flat feature vector. Four modes are available (`AggMode`):
+
+| mode      | output dim       | description                                              |
+|-----------|------------------|----------------------------------------------------------|
+| `concat`  | `n_tail * d_model` | concatenate the last `n_tail` tokens of `layer_idx` (default, as in the paper; short steps are zero-padded on the left) |
+| `pooling` | `d_model`        | mean-pool tokens, then mean over the last 4 layers       |
+| `min`     | `d_model`        | mean-pool tokens, then element-wise min over the last 4 layers |
+| `last`    | `d_model`        | single last token of `layer_idx`                         |
+
+`compute_feature_dim(d_model, mode, n_tail)` returns the resulting `d_in`, which must match the probe bank's input dimension (`ProbeBank(d_model=..., n_tail=...)`). `aggregate_hidden_states(...)` is the lower-level entry point if you already hold a `(L, T, d)` (or single-layer `(T, d)`) tensor. The feature backbone need not be the draft model — the paper permits using `Ms` or a separate assistance model.
+
 ## Programmatic use
 
 ```python
