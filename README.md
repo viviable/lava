@@ -29,10 +29,16 @@ lava/
   speculative.py        LAVAPipeline + VLLMModelInterface (OpenAI client)
   continual.py          Continual-learning eval: accuracy matrix, FA bounds, latency
 scripts/
+  extract_features.py   Run the backbone over annotated steps -> train/test .pt tensors
+  extract_features.sh     ^ shell wrapper
   train_probe.py        Train one concept probe from extracted features
-  run_lava.py           Run the speculative pipeline over AIME / MATH-500 / GPQA
-  inference.sh          Wrapper around run_lava.py
+  train_probe.sh          ^ shell wrapper
+  run_lava.py           Run the speculative pipeline over GSM8K / AIME / MATH-500 / HMMT
+  inference.sh            ^ shell wrapper
+  score_runs.py         Score runs the way G-OPD does (boxed extraction + math_verify)
+  score.sh                ^ shell wrapper
   eval_continual.py     Run the Experiment-A continual-learning protocol
+  eval_continual.sh       ^ shell wrapper
 tests/
   test_lava.py          Unit tests (probes, training, probe bank, continual)
 ```
@@ -44,6 +50,31 @@ pip install -r requirements.txt
 # vLLM is served as a separate process; install it in the same env:
 pip install vllm
 ```
+
+## End-to-end pipeline (.sh entry points)
+
+```bash
+# 1. Extract features from a JSONL of annotated steps (one concept at a time).
+#    Input row: {"context": "...", "step_text": "...", "label": 0|1, "confidence": 0..1}
+bash scripts/extract_features.sh data/raw/math_correctness.jsonl \
+                                 data/task_0_math_correctness
+
+# 2. Train a frozen probe for that concept.
+bash scripts/train_probe.sh data/task_0_math_correctness \
+                            math_correctness \
+                            probes/
+
+# 3. Run speculative reasoning (launch the two vLLM servers first — see below).
+bash scripts/inference.sh aime 0 0      # dataset, problem_id, repeat_id
+
+# 4. Score the run dir (G-OPD-style: last \boxed{} + math_verify).
+bash scripts/score.sh results/lava
+
+# 5. (Optional) Continual-learning eval across multiple concept tasks.
+bash scripts/eval_continual.sh data/ results/continual.json
+```
+
+Every wrapper exposes its knobs as environment variables (see the comment block at the top of each `.sh`). For example: `D_MODEL=2048 PROBE_TYPE=linear bash scripts/train_probe.sh ...`.
 
 ## Train a probe
 
@@ -78,7 +109,7 @@ python -m vllm.entrypoints.openai.api_server \
 
 # 3. Runner
 python scripts/run_lava.py \
-    --dataset_name aime --problem_id 60 --repeat_id 0 \
+    --dataset_name aime --problem_id 0 --repeat_id 0 \
     --probe_bank probes/ \
     --hidden_backbone deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B \
     --draft_url  http://localhost:30001/v1 \
@@ -86,9 +117,25 @@ python scripts/run_lava.py \
     --output_dir results/lava
 ```
 
-The runner writes per-problem pickle + txt files containing one metadata dict per step (draft text, probe scores, accept/reject, strong-regenerated text if any, per-stage token counts and latencies, stop reason). The schema matches the SpecReason logs with the LLM-as-judge score replaced by `probe_scores` + `concept_names`.
+The runner writes per-problem pickle + txt files containing one metadata dict per step (draft text, probe scores, accept/reject, strong-regenerated text if any, per-stage token counts and latencies, stop reason). The schema matches the SpecReason logs with the LLM-as-judge score replaced by `probe_scores` + `concept_names`. A sibling `<repeat>.gold.json` records the dataset, problem text, and ground-truth answer so the scorer can grade later.
 
-Supported datasets: `aime` (HuggingFaceH4/aime_2024), `math` (HuggingFaceH4/MATH-500), `gpqa` (Idavidrein/gpqa, diamond split).
+Supported benchmarks (all math reasoning):
+
+| `--dataset_name` | HF id | # problems |
+| --- | --- | --- |
+| `gsm8k`   | `openai/gsm8k` (`main`, test) | 1319 |
+| `aime`    | `HuggingFaceH4/aime_2024` (train) | 30 |
+| `math500` | `HuggingFaceH4/MATH-500` (test) | 500 |
+| `hmmt`    | `MathArena/hmmt_feb_2025` (train) | 30 |
+
+## Score
+
+After a sweep, aggregate accuracy / tokens / latency / draft-accept rate using G-OPD-style grading (last `\boxed{...}` + `math_verify` for math equivalence):
+
+```bash
+python scripts/score_runs.py --results_dir results/lava
+# or restrict: --datasets gsm8k math500
+```
 
 ## Programmatic use
 

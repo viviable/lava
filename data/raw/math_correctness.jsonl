@@ -1,0 +1,30 @@
+{"context": "Problem: Solve 2x + 3 = 7.", "step_text": " Add 3 to both sides giving 2x = 10.", "label": 0, "confidence": 0.9635517147592582}
+{"context": "Problem: Find the area of a triangle with base 4 and height 6.", "step_text": " Use A = (1/2) * base * height = 12.", "label": 1, "confidence": 0.9488522484998514}
+{"context": "Problem: What is 12 * 13?", "step_text": " 12 * 13 = 144.", "label": 0, "confidence": 0.8914971687412436}
+{"context": "Problem: Compute the GCD of 48 and 36.", "step_text": " GCD via Euclid: 48 = 36 + 12, 36 = 3*12, so GCD = 12.", "label": 1, "confidence": 0.8640158475498038}
+{"context": "Problem: Simplify (a^2 - b^2)/(a + b).", "step_text": " Cancel a and b directly to get 0.", "label": 0, "confidence": 0.9069167026326634}
+{"context": "Problem: Solve 2x + 3 = 7.", "step_text": " Subtract 3 from both sides: 2x = 4.", "label": 1, "confidence": 0.8888388033665704}
+{"context": "Problem: Find the area of a triangle with base 4 and height 6.", "step_text": " A = base + height = 10.", "label": 0, "confidence": 0.9532457601359113}
+{"context": "Problem: What is 12 * 13?", "step_text": " Compute 12 * 13 = 156 by distribution.", "label": 1, "confidence": 0.8715631634334177}
+{"context": "Problem: Compute the GCD of 48 and 36.", "step_text": " GCD = 4 since both are divisible by 4.", "label": 0, "confidence": 0.9010214822059005}
+{"context": "Problem: Simplify (a^2 - b^2)/(a + b).", "step_text": " Factor numerator as (a-b)(a+b); cancel (a+b) to get a - b.", "label": 1, "confidence": 0.9191749467073553}
+{"context": "Problem: Solve 2x + 3 = 7.", "step_text": " Add 3 to both sides giving 2x = 10.", "label": 0, "confidence": 0.974379190483207}
+{"context": "Problem: Find the area of a triangle with base 4 and height 6.", "step_text": " Use A = (1/2) * base * height = 12.", "label": 1, "confidence": 0.9057967654889563}
+{"context": "Problem: What is 12 * 13?", "step_text": " 12 * 13 = 144.", "label": 0, "confidence": 0.8679124335479496}
+{"context": "Problem: Compute the GCD of 48 and 36.", "step_text": " GCD via Euclid: 48 = 36 + 12, 36 = 3*12, so GCD = 12.", "label": 1, "confidence": 0.9484867147067281}
+{"context": "Problem: Simplify (a^2 - b^2)/(a + b).", "step_text": " Cancel a and b directly to get 0.", "label": 0, "confidence": 0.9251227294348063}
+{"context": "Problem: Solve 2x + 3 = 7.", "step_text": " Subtract 3 from both sides: 2x = 4.", "label": 1, "confidence": 0.8625860780316148}
+{"context": "Problem: Find the area of a triangle with base 4 and height 6.", "step_text": " A = base + height = 10.", "label": 0, "confidence": 0.9746568635146008}
+{"context": "Problem: What is 12 * 13?", "step_text": " Compute 12 * 13 = 156 by distribution.", "label": 1, "confidence": 0.987073530926401}
+{"context": "Problem: Compute the GCD of 48 and 36.", "step_text": " GCD = 4 since both are divisible by 4.", "label": 0, "confidence": 0.9577369301194202}
+{"context": "Problem: Simplify (a^2 - b^2)/(a + b).", "step_text": " Factor numerator as (a-b)(a+b); cancel (a+b) to get a - b.", "label": 1, "confidence": 0.9733682115747291}
+{"context": "Problem: Solve 2x + 3 = 7.", "step_text": " Add 3 to both sides giving 2x = 10.", "label": 0, "confidence": 0.8727250867842865}
+{"context": "Problem: Find the area of a triangle with base 4 and height 6.", "step_text": " Use A = (1/2) * base * height = 12.", "label": 1, "confidence": 0.9440713972042218}
+{"context": "Problem: What is 12 * 13?", "step_text": " 12 * 13 = 144.", "label": 0, "confidence": 0.9728025089545589}
+{"context": "Problem: Compute the GCD of 48 and 36.", "step_text": " GCD via Euclid: 48 = 36 + 12, 36 = 3*12, so GCD = 12.", "label": 1, "confidence": 0.936277268425625}
+{"context": "Problem: Simplify (a^2 - b^2)/(a + b).", "step_text": " Cancel a and b directly to get 0.", "label": 0, "confidence": 0.9002642616269613}
+{"context": "Problem: Solve 2x + 3 = 7.", "step_text": " Subtract 3 from both sides: 2x = 4.", "label": 1, "confidence": 0.8371192053716221}
+{"context": "Problem: Find the area of a triangle with base 4 and height 6.", "step_text": " A = base + height = 10.", "label": 0, "confidence": 0.8938092120271433}
+{"context": "Problem: What is 12 * 13?", "step_text": " Compute 12 * 13 = 156 by distribution.", "label": 1, "confidence": 0.9238507854854463}
+{"context": "Problem: Compute the GCD of 48 and 36.", "step_text": " GCD = 4 since both are divisible by 4.", "label": 0, "confidence": 0.9752118790504427}
+{"context": "Problem: Simplify (a^2 - b^2)/(a + b).", "step_text": " Factor numerator as (a-b)(a+b); cancel (a+b) to get a - b.", "label": 1, "confidence": 0.984323082521029}

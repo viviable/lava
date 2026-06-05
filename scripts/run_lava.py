@@ -1,5 +1,5 @@
 """
-Run LAVA speculative reasoning on AIME / MATH-500 / GPQA-Diamond.
+Run LAVA speculative reasoning on GSM8K / AIME 2024 / MATH-500 / HMMT Feb 2025.
 
 Setup (mirrors SpecReason):
 
@@ -15,7 +15,7 @@ Setup (mirrors SpecReason):
 
     # Terminal 3 — LAVA runner
     python scripts/run_lava.py \\
-        --dataset_name aime --problem_id 60 --repeat_id 0 \\
+        --dataset_name aime --problem_id 0 --repeat_id 0 \\
         --probe_bank probes/ \\
         --draft_url http://localhost:30001/v1 \\
         --strong_url http://localhost:30000/v1 \\
@@ -24,12 +24,15 @@ Setup (mirrors SpecReason):
 
 Per-problem output is a pickle of the full step-level metadata list (one dict
 per step) plus a pretty-printed .txt for inspection — the same shape as
-SpecReason's logs, with the LLM-as-judge score replaced by probe scores.
+SpecReason's logs, with the LLM-as-judge score replaced by probe scores. A
+sibling ``<problem_id>.<repeat>.gold.json`` records the dataset name, problem
+text, and ground-truth answer for downstream scoring (see ``score_runs.py``).
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import os
 import pickle
@@ -44,7 +47,6 @@ from lava import LAVAConfig, LAVAPipeline, ProbeBank
 from lava.backbone import HFHiddenStateBackbone
 from lava.speculative import (
     DEFAULT_MATH_SYSTEM_PROMPT,
-    DEFAULT_MCQ_SYSTEM_PROMPT,
     VLLMModelInterface,
 )
 
@@ -53,45 +55,53 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 
 
 # ---------------------------------------------------------------------------
-# Dataset loading (matches SpecReason's `get_dataset`)
+# Dataset loading — math reasoning benchmarks (GSM8K, AIME, MATH-500, HMMT).
+# G-OPD (RUCBM/G-OPD) style: every example reduces to (problem, gold_answer),
+# graded later via boxed-answer extraction + math_verify.
 # ---------------------------------------------------------------------------
 
+DATASETS = {
+    "gsm8k":    {"hf": "openai/gsm8k",           "config": "main",      "split": "test"},
+    "aime":     {"hf": "HuggingFaceH4/aime_2024","config": None,        "split": "train"},
+    "math500":  {"hf": "HuggingFaceH4/MATH-500", "config": None,        "split": "test"},
+    "hmmt":     {"hf": "MathArena/hmmt_feb_2025","config": None,        "split": "train"},
+}
+
+
+def _gsm8k_gold(answer_field: str) -> str:
+    """GSM8K answers look like '... explanation ...\\n#### 18'. Keep the number."""
+    return answer_field.split("####")[-1].strip()
+
+
 def load_problem(dataset_name: str, problem_id: int):
-    """Return (problem_text, options_dict_or_None, system_prompt, prompt_kwargs)."""
+    """Return (problem_text, gold_answer, system_prompt, prompt_kwargs)."""
     try:
         from datasets import load_dataset
     except ImportError as e:
         raise ImportError("pip install datasets") from e
 
-    if dataset_name == "aime":
-        ds = load_dataset("HuggingFaceH4/aime_2024")["train"]
-        # SpecReason uses problem_ids 60..89, indexing ds[problem_id - 60].
-        problem = ds["problem"][problem_id - 60]
-        return problem, None, DEFAULT_MATH_SYSTEM_PROMPT, {}
+    if dataset_name not in DATASETS:
+        raise ValueError(f"Unknown dataset: {dataset_name}. Choose from {list(DATASETS)}.")
+    spec = DATASETS[dataset_name]
+    ds = load_dataset(spec["hf"], spec["config"]) if spec["config"] else load_dataset(spec["hf"])
+    ds = ds[spec["split"]]
 
-    if dataset_name == "math":
-        ds = load_dataset("HuggingFaceH4/MATH-500")["test"]
+    if dataset_name == "gsm8k":
+        problem = ds["question"][problem_id]
+        gold = _gsm8k_gold(ds["answer"][problem_id])
+    elif dataset_name == "aime":
         problem = ds["problem"][problem_id]
-        return problem, None, DEFAULT_MATH_SYSTEM_PROMPT, {}
+        gold = str(ds["answer"][problem_id])
+    elif dataset_name == "math500":
+        problem = ds["problem"][problem_id]
+        gold = str(ds["answer"][problem_id])
+    elif dataset_name == "hmmt":
+        problem = ds["problem"][problem_id]
+        gold = str(ds["answer"][problem_id])
+    else:  # unreachable — guarded by DATASETS check above
+        raise ValueError(dataset_name)
 
-    if dataset_name == "gpqa":
-        ds = load_dataset("Idavidrein/gpqa", "gpqa_diamond")["train"]
-        problem = ds["Question"][problem_id]
-        options = {
-            "A": ds["Correct Answer"][problem_id],
-            "B": ds["Incorrect Answer 1"][problem_id],
-            "C": ds["Incorrect Answer 2"][problem_id],
-            "D": ds["Incorrect Answer 3"][problem_id],
-        }
-        prompt_kwargs = {
-            "ans_a": options["A"],
-            "ans_b": options["B"],
-            "ans_c": options["C"],
-            "ans_d": options["D"],
-        }
-        return problem, options, DEFAULT_MCQ_SYSTEM_PROMPT, prompt_kwargs
-
-    raise ValueError(f"Unknown dataset: {dataset_name}")
+    return problem, gold, DEFAULT_MATH_SYSTEM_PROMPT, {}
 
 
 # ---------------------------------------------------------------------------
@@ -100,8 +110,8 @@ def load_problem(dataset_name: str, problem_id: int):
 
 def parse_args():
     p = argparse.ArgumentParser(description="LAVA speculative reasoning runner.")
-    p.add_argument("--dataset_name", choices=["aime", "math", "gpqa"], default="aime")
-    p.add_argument("--problem_id", type=int, default=60)
+    p.add_argument("--dataset_name", choices=list(DATASETS.keys()), default="aime")
+    p.add_argument("--problem_id", type=int, default=0)
     p.add_argument("--repeat_id", type=int, default=0)
     p.add_argument("--token_budget", type=int, default=8192)
     p.add_argument("--max_steps", type=int, default=128)
@@ -133,8 +143,8 @@ def main():
         logging.info(f"Already resolved: {out_base}.pickle — exiting.")
         return
 
-    problem, options, system_prompt, prompt_kwargs = load_problem(args.dataset_name, args.problem_id)
-    logging.info(f"Loaded {args.dataset_name} #{args.problem_id}")
+    problem, gold_answer, system_prompt, prompt_kwargs = load_problem(args.dataset_name, args.problem_id)
+    logging.info(f"Loaded {args.dataset_name} #{args.problem_id} (gold={gold_answer!r})")
 
     # 1. Probe bank.
     logging.info(f"Loading probe bank from {args.probe_bank}")
@@ -218,6 +228,14 @@ def main():
         pickle.dump(metadata_list, f)
     with open(out_base + ".txt", "w") as f:
         pprint.pprint(metadata_list, stream=f)
+    with open(out_base + ".gold.json", "w") as f:
+        json.dump({
+            "dataset": args.dataset_name,
+            "problem_id": args.problem_id,
+            "repeat_id": args.repeat_id,
+            "problem": problem,
+            "answer": gold_answer,
+        }, f)
 
     logging.info(
         f"Done. steps={result.total_steps} "

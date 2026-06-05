@@ -6,3 +6,5 @@ openai>=1.0
 datasets
 # Hidden-state extraction backbone
 transformers>=4.40
+# Math-equivalence grading for score_runs.py (G-OPD-style scorer)
+math_verify

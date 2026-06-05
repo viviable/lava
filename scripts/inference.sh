@@ -2,12 +2,13 @@
 # Launch vLLM servers + LAVA runner. Mirrors specreason/spec_reason_della.sh.
 #
 # Usage:
-#   bash scripts/inference.sh aime 60 0       # dataset, problem_id, repeat_id
+#   bash scripts/inference.sh aime 0 0        # dataset, problem_id, repeat_id
+# Datasets: gsm8k | aime | math500 | hmmt
 
 set -euo pipefail
 
 DATASET=${1:-aime}
-PROBLEM_ID=${2:-60}
+PROBLEM_ID=${2:-0}
 REPEAT_ID=${3:-0}
 
 DRAFT_MODEL=${DRAFT_MODEL:-deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B}
