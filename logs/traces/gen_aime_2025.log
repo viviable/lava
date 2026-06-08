@@ -1,0 +1,50 @@
+2026-06-08 02:07:30,588 - INFO - HTTP Request: GET http://localhost:30004/v1/models "HTTP/1.1 200 OK"
+2026-06-08 02:07:30,590 - INFO - Using model Qwen/Qwen3-0.6B at http://localhost:30004/v1
+2026-06-08 02:07:31,191 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/aime_2025/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-06-08 02:07:31,208 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/MathArena/aime_2025/c94da77eb22bbd6439e62a323bec18493a421302/README.md "HTTP/1.1 200 OK"
+2026-06-08 02:07:31,242 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/aime_2025/resolve/c94da77eb22bbd6439e62a323bec18493a421302/aime_2025.py "HTTP/1.1 404 Not Found"
+2026-06-08 02:07:31,379 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/MathArena/aime_2025/MathArena/aime_2025.py "HTTP/1.1 404 Not Found"
+2026-06-08 02:07:31,413 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/MathArena/aime_2025/revision/c94da77eb22bbd6439e62a323bec18493a421302 "HTTP/1.1 200 OK"
+2026-06-08 02:07:31,446 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/aime_2025/resolve/c94da77eb22bbd6439e62a323bec18493a421302/.huggingface.yaml "HTTP/1.1 404 Not Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-06-08 02:07:31,447 - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-06-08 02:07:31,582 - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=MathArena/aime_2025 "HTTP/1.1 200 OK"
+2026-06-08 02:07:32,476 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/MathArena/aime_2025/tree/c94da77eb22bbd6439e62a323bec18493a421302/data?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-08 02:07:32,510 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/MathArena/aime_2025/tree/c94da77eb22bbd6439e62a323bec18493a421302?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-06-08 02:07:32,545 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/aime_2025/resolve/c94da77eb22bbd6439e62a323bec18493a421302/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-06-08 02:07:32,553 - INFO - Loaded 30 problems from aime_2025
+2026-06-08 02:07:32,553 - INFO - 30 traces to generate (0 skipped)
+2026-06-08 02:07:44,710 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:50,416 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:51,096 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:56,284 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:56,611 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:59,246 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:00,982 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:19,641 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:22,058 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:45,380 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:45,381 - INFO - progress: ok=10 fail=0
+2026-06-08 02:08:56,778 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:03,685 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:08,559 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:11,922 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:20,415 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:22,994 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:27,494 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:31,086 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:34,372 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,488 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,488 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,488 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,489 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,489 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,490 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,491 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,491 - INFO - progress: ok=20 fail=0
+2026-06-08 02:09:36,492 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,493 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,493 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,493 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:36,501 - INFO - progress: ok=30 fail=0
+2026-06-08 02:09:36,502 - INFO - Done. ok=30 fail=0 -> data/raw/aime_2025_qwen3-0.6b.jsonl

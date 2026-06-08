@@ -1,0 +1,50 @@
+2026-06-08 02:07:30,582 - INFO - HTTP Request: GET http://localhost:30003/v1/models "HTTP/1.1 200 OK"
+2026-06-08 02:07:30,584 - INFO - Using model Qwen/Qwen3-0.6B at http://localhost:30003/v1
+2026-06-08 02:07:31,273 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/HuggingFaceH4/aime_2024/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-06-08 02:07:31,274 - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-06-08 02:07:31,292 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/HuggingFaceH4/aime_2024/2fe88a2f1091d5048c0f36abc874fb997b3dd99a/README.md "HTTP/1.1 200 OK"
+2026-06-08 02:07:31,326 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/HuggingFaceH4/aime_2024/resolve/2fe88a2f1091d5048c0f36abc874fb997b3dd99a/aime_2024.py "HTTP/1.1 404 Not Found"
+2026-06-08 02:07:31,388 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/HuggingFaceH4/aime_2024/HuggingFaceH4/aime_2024.py "HTTP/1.1 404 Not Found"
+2026-06-08 02:07:31,422 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/HuggingFaceH4/aime_2024/revision/2fe88a2f1091d5048c0f36abc874fb997b3dd99a "HTTP/1.1 200 OK"
+2026-06-08 02:07:31,458 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/HuggingFaceH4/aime_2024/resolve/2fe88a2f1091d5048c0f36abc874fb997b3dd99a/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-06-08 02:07:31,586 - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=HuggingFaceH4/aime_2024 "HTTP/1.1 200 OK"
+2026-06-08 02:07:31,634 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/HuggingFaceH4/aime_2024/tree/2fe88a2f1091d5048c0f36abc874fb997b3dd99a/data?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-08 02:07:31,668 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/HuggingFaceH4/aime_2024/tree/2fe88a2f1091d5048c0f36abc874fb997b3dd99a?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-06-08 02:07:31,704 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/HuggingFaceH4/aime_2024/resolve/2fe88a2f1091d5048c0f36abc874fb997b3dd99a/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-06-08 02:07:31,712 - INFO - Loaded 30 problems from aime
+2026-06-08 02:07:31,712 - INFO - 30 traces to generate (0 skipped)
+2026-06-08 02:07:52,018 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:52,764 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:53,896 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:07:53,983 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:15,883 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:28,559 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:34,030 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:45,839 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:08:46,106 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:13,783 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:13,784 - INFO - progress: ok=10 fail=0
+2026-06-08 02:09:33,044 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:35,296 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:42,394 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,797 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,797 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,798 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,800 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,800 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,801 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,801 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,801 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,802 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,805 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,806 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,806 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,807 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,807 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,807 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,808 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,809 - INFO - HTTP Request: POST http://localhost:30003/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:09:49,812 - INFO - progress: ok=20 fail=0
+2026-06-08 02:09:49,822 - INFO - progress: ok=30 fail=0
+2026-06-08 02:09:49,823 - INFO - Done. ok=30 fail=0 -> data/raw/aime_qwen3-0.6b.jsonl

@@ -1,0 +1,50 @@
+2026-06-08 02:57:03,616 - INFO - HTTP Request: GET http://localhost:30004/v1/models "HTTP/1.1 200 OK"
+2026-06-08 02:57:03,617 - INFO - Using model Qwen/Qwen3-0.6B at http://localhost:30004/v1
+2026-06-08 02:57:04,302 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/hmmt_nov_2025/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-06-08 02:57:04,321 - INFO - HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/MathArena/hmmt_nov_2025/118dbfb45c4c9467c672268ed55166642897aa46/README.md "HTTP/1.1 200 OK"
+2026-06-08 02:57:04,356 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/hmmt_nov_2025/resolve/118dbfb45c4c9467c672268ed55166642897aa46/hmmt_nov_2025.py "HTTP/1.1 404 Not Found"
+2026-06-08 02:57:04,493 - INFO - HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/MathArena/hmmt_nov_2025/MathArena/hmmt_nov_2025.py "HTTP/1.1 404 Not Found"
+2026-06-08 02:57:04,545 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/MathArena/hmmt_nov_2025/revision/118dbfb45c4c9467c672268ed55166642897aa46 "HTTP/1.1 200 OK"
+2026-06-08 02:57:04,577 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/hmmt_nov_2025/resolve/118dbfb45c4c9467c672268ed55166642897aa46/.huggingface.yaml "HTTP/1.1 404 Not Found"
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-06-08 02:57:04,577 - WARNING - Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-06-08 02:57:04,704 - INFO - HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=MathArena/hmmt_nov_2025 "HTTP/1.1 200 OK"
+2026-06-08 02:57:04,744 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/MathArena/hmmt_nov_2025/tree/118dbfb45c4c9467c672268ed55166642897aa46/data?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-06-08 02:57:04,783 - INFO - HTTP Request: GET https://huggingface.co/api/datasets/MathArena/hmmt_nov_2025/tree/118dbfb45c4c9467c672268ed55166642897aa46?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-06-08 02:57:04,816 - INFO - HTTP Request: HEAD https://huggingface.co/datasets/MathArena/hmmt_nov_2025/resolve/118dbfb45c4c9467c672268ed55166642897aa46/dataset_infos.json "HTTP/1.1 404 Not Found"
+2026-06-08 02:57:04,822 - INFO - Loaded 30 problems from hmmt_nov_2025
+2026-06-08 02:57:04,822 - INFO - 30 traces to generate (0 skipped)
+2026-06-08 02:57:23,464 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:57:25,844 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:57:32,886 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:57:45,215 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:57:46,997 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:58:13,356 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:58:13,689 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:58:15,304 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:58:16,550 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:58:29,080 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:58:29,082 - INFO - progress: ok=10 fail=0
+2026-06-08 02:58:33,213 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:58:39,653 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:15,065 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,422 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,436 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,436 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,437 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,437 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,438 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,439 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,443 - INFO - progress: ok=20 fail=0
+2026-06-08 02:59:22,447 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,449 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,450 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,451 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,451 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,452 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,452 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,452 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,453 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,453 - INFO - HTTP Request: POST http://localhost:30004/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-08 02:59:22,462 - INFO - progress: ok=30 fail=0
+2026-06-08 02:59:22,463 - INFO - Done. ok=30 fail=0 -> data/raw/hmmt_nov_2025_qwen3-0.6b.jsonl

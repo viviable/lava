@@ -1,0 +1,5 @@
+53773 hmmt data/raw/hmmt_qwen3-0.6b.jsonl
+53774 hmmt_2024 data/raw/hmmt_2024_qwen3-0.6b.jsonl
+53775 aime data/raw/aime_qwen3-0.6b.jsonl
+53776 aime_2025 data/raw/aime_2025_qwen3-0.6b.jsonl
+53777 math500 data/raw/math500_qwen3-0.6b.jsonl

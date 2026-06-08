@@ -12,10 +12,18 @@ from __future__ import annotations
 
 
 DATASETS = {
-    "gsm8k":    {"hf": "openai/gsm8k",            "config": "main", "split": "test"},
-    "aime":     {"hf": "HuggingFaceH4/aime_2024", "config": None,   "split": "train"},
-    "math500":  {"hf": "HuggingFaceH4/MATH-500",  "config": None,   "split": "test"},
-    "hmmt":     {"hf": "MathArena/hmmt_feb_2025",  "config": None,   "split": "train"},
+    "gsm8k":     {"hf": "openai/gsm8k",            "config": "main", "split": "test"},
+    "aime":      {"hf": "HuggingFaceH4/aime_2024", "config": None,   "split": "train"},
+    "aime_2025": {"hf": "MathArena/aime_2025",     "config": None,   "split": "train"},
+    "math500":   {"hf": "HuggingFaceH4/MATH-500",  "config": None,   "split": "test"},
+    # HMMT (Harvard-MIT Math Tournament) — two contests/year (Feb & Nov), each a
+    # distinct problem set. "hmmt" kept as a default alias for the Feb 2025 set.
+    "hmmt":          {"hf": "MathArena/hmmt_feb_2025", "config": None, "split": "train"},
+    "hmmt_feb_2023": {"hf": "MathArena/hmmt_feb_2023", "config": None, "split": "train"},
+    "hmmt_feb_2024": {"hf": "MathArena/hmmt_feb_2024", "config": None, "split": "train"},
+    "hmmt_feb_2025": {"hf": "MathArena/hmmt_feb_2025", "config": None, "split": "train"},
+    "hmmt_nov_2025": {"hf": "MathArena/hmmt_nov_2025", "config": None, "split": "train"},
+    "hmmt_feb_2026": {"hf": "MathArena/hmmt_feb_2026", "config": None, "split": "train"},
 }
 
 

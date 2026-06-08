@@ -57,12 +57,24 @@ def parse_args():
 def main():
     args = parse_args()
 
-    features = torch.load(args.features, map_location=args.device)
+    # Features may be saved in fp16/bf16 by extract_features.py; probes are fp32.
+    features = torch.load(args.features, map_location=args.device).float()
     labels = torch.load(args.labels, map_location=args.device) if args.labels else None
 
     print(f"Loaded features: {features.shape}")
     if labels is not None:
         print(f"Loaded labels: {labels.shape}, pos_rate={labels.float().mean():.2%}")
+
+    # Validate --d_model against the feature dim (concat: d_in = n_tail * d_model).
+    # All-layer features are (N, L+1, d_in); single-layer are (N, d_in).
+    feat_dim = features.shape[-1]
+    expected_d_model = feat_dim // args.n_tail
+    if args.d_model != expected_d_model:
+        print(f"WARNING: --d_model {args.d_model} != feat_dim/{args.n_tail} = {expected_d_model}; "
+              f"using {expected_d_model} to match the features.")
+        args.d_model = expected_d_model
+    if features.dim() == 3 and args.supervision == "classification":
+        print(f"All-layer features detected: searching {features.shape[1]} layers for L*.")
 
     bank = ProbeBank(d_model=args.d_model, n_tail=args.n_tail, device=args.device)
     cfg = ConceptConfig(
@@ -83,10 +95,17 @@ def main():
     history = bank.add_concept(cfg, features, labels, train_config=train_cfg, verbose=args.verbose)
     final_loss = history["train_loss_history"][-1]
     print(f"Training complete. Final loss: {final_loss:.4f}")
+    if "best_layer" in history:
+        print(f"Selected layer L* = {history['best_layer']} (val_acc={history['val_acc']:.2%})")
+        print(f"  per-layer val_acc: " +
+              ", ".join(f"{i}:{a:.2f}" for i, a in enumerate(history["per_layer_acc"])))
 
     if args.test_features and args.test_labels:
-        test_features = torch.load(args.test_features, map_location=args.device)
+        test_features = torch.load(args.test_features, map_location=args.device).float()
         test_labels = torch.load(args.test_labels, map_location=args.device)
+        # Match the layer the probe was trained on.
+        if test_features.dim() == 3 and cfg.best_layer is not None:
+            test_features = test_features[:, cfg.best_layer, :]
         probe = bank._probes[0]
         metrics = evaluate_probe(probe, test_features, test_labels, threshold=args.threshold, device=args.device)
         print(f"Test Accuracy: {metrics['accuracy']:.2%}")

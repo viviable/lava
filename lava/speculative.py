@@ -27,7 +27,7 @@ import time
 import torch
 
 from .probe_bank import ProbeBank
-from .feature_extraction import extract_step_feature, AggMode
+from .feature_extraction import AggMode
 from .backbone import HFHiddenStateBackbone
 
 
@@ -245,13 +245,14 @@ class LAVAPipeline:
 
         t0 = time.perf_counter()
         hidden = self.hidden_backbone.extract_step_hidden(context, step_text)
-        f = extract_step_feature(
+        # Per-concept L*: each probe reads features from the layer it was trained
+        # on (ConceptConfig.best_layer), falling back to the global layer_idx.
+        accept, scores = self.probe_bank.verify_hidden(
             hidden,
-            mode=self.config.agg_mode,
+            agg_mode=self.config.agg_mode,
             n_tail=self.config.n_tail,
-            layer_idx=self.config.layer_idx,
+            default_layer_idx=self.config.layer_idx,
         )
-        accept, scores = self.probe_bank.verify(f)
         return accept, scores, time.perf_counter() - t0
 
     def run(self, problem: str, token_budget: Optional[int] = None) -> GenerationResult:
