@@ -43,12 +43,17 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 import torch
 
+sys.path.insert(0, os.path.dirname(__file__))  # scripts dir -> datasets_common
+
 from lava import LAVAConfig, LAVAPipeline, ProbeBank
 from lava.backbone import HFHiddenStateBackbone
 from lava.speculative import (
     DEFAULT_MATH_SYSTEM_PROMPT,
     VLLMModelInterface,
 )
+# Single source of truth for the benchmark table, shared with generate_traces.py.
+from datasets_common import DATASETS  # noqa: E402
+from datasets_common import load_problem as _load_problem_gold  # noqa: E402
 
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -60,47 +65,9 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 # graded later via boxed-answer extraction + math_verify.
 # ---------------------------------------------------------------------------
 
-DATASETS = {
-    "gsm8k":    {"hf": "openai/gsm8k",           "config": "main",      "split": "test"},
-    "aime":     {"hf": "HuggingFaceH4/aime_2024","config": None,        "split": "train"},
-    "math500":  {"hf": "HuggingFaceH4/MATH-500", "config": None,        "split": "test"},
-    "hmmt":     {"hf": "MathArena/hmmt_feb_2025","config": None,        "split": "train"},
-}
-
-
-def _gsm8k_gold(answer_field: str) -> str:
-    """GSM8K answers look like '... explanation ...\\n#### 18'. Keep the number."""
-    return answer_field.split("####")[-1].strip()
-
-
 def load_problem(dataset_name: str, problem_id: int):
     """Return (problem_text, gold_answer, system_prompt, prompt_kwargs)."""
-    try:
-        from datasets import load_dataset
-    except ImportError as e:
-        raise ImportError("pip install datasets") from e
-
-    if dataset_name not in DATASETS:
-        raise ValueError(f"Unknown dataset: {dataset_name}. Choose from {list(DATASETS)}.")
-    spec = DATASETS[dataset_name]
-    ds = load_dataset(spec["hf"], spec["config"]) if spec["config"] else load_dataset(spec["hf"])
-    ds = ds[spec["split"]]
-
-    if dataset_name == "gsm8k":
-        problem = ds["question"][problem_id]
-        gold = _gsm8k_gold(ds["answer"][problem_id])
-    elif dataset_name == "aime":
-        problem = ds["problem"][problem_id]
-        gold = str(ds["answer"][problem_id])
-    elif dataset_name == "math500":
-        problem = ds["problem"][problem_id]
-        gold = str(ds["answer"][problem_id])
-    elif dataset_name == "hmmt":
-        problem = ds["problem"][problem_id]
-        gold = str(ds["answer"][problem_id])
-    else:  # unreachable — guarded by DATASETS check above
-        raise ValueError(dataset_name)
-
+    problem, gold = _load_problem_gold(dataset_name, problem_id)
     return problem, gold, DEFAULT_MATH_SYSTEM_PROMPT, {}
 
 
